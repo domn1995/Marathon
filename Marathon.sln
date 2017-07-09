@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marathon.Library", "Marathon.Library\Marathon.Library.csproj", "{FDCC82F9-645D-418A-BC25-44CDE158E597}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marathon.Library", "Marathon.Library\Marathon.Library.csproj", "{FDCC82F9-645D-418A-BC25-44CDE158E597}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marathon.CommandLine", "Marathon.CommandLine\Marathon.CommandLine.csproj", "{F6C716F6-8D75-4F73-A203-A0CEA94B29CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marathon.Tests", "Marathon.Tests\Marathon.Tests.csproj", "{9B6BBC2E-6FC4-4331-84F5-3B9D53C61255}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{FDCC82F9-645D-418A-BC25-44CDE158E597}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDCC82F9-645D-418A-BC25-44CDE158E597}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDCC82F9-645D-418A-BC25-44CDE158E597}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6C716F6-8D75-4F73-A203-A0CEA94B29CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6C716F6-8D75-4F73-A203-A0CEA94B29CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6C716F6-8D75-4F73-A203-A0CEA94B29CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6C716F6-8D75-4F73-A203-A0CEA94B29CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B6BBC2E-6FC4-4331-84F5-3B9D53C61255}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B6BBC2E-6FC4-4331-84F5-3B9D53C61255}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B6BBC2E-6FC4-4331-84F5-3B9D53C61255}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B6BBC2E-6FC4-4331-84F5-3B9D53C61255}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

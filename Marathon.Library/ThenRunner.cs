@@ -1,7 +1,7 @@
 ﻿namespace Marathon.Library
 {
-    public class BaseRunner
+    public class ThenRunner
     {
-
+        
     }
 }

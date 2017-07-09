@@ -1,9 +1,9 @@
-﻿using System;
+﻿using System.Threading.Tasks;
 
 namespace Marathon.Library.Interfaces
 {
-    public interface IAsync : IAsyncResult
+    public interface IAsync
     {
-        
+        Task Async();
     }
 }
