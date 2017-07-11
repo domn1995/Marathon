@@ -1,24 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Marathon.Library.Interfaces
 {
     public abstract class BaseRunner : IAsync, ISync, IThen, IAnd
     {
-        protected TaskCollectionCombinationMode CombinationMode { get; set; }
         protected Task CombinedTasks { get; set; }
 
-        protected BaseRunner()
+        public Task Async()
         {
-            
+            CombinedTasks.Start();
+            return CombinedTasks;
         }
-
-        protected BaseRunner(TaskCollectionCombinationMode mode)
-        {
-            CombinationMode = mode;
-        }
-
-        public Task Async() => CombinedTasks;
 
         public void Sync()
         {
@@ -26,18 +20,22 @@ namespace Marathon.Library.Interfaces
             CombinedTasks.GetAwaiter().GetResult();
         }
 
-        public BaseRunner Then(params Task[] tasks) => Then((IEnumerable<Task>)tasks);
+        public BaseRunner Then(params Action[] tasks) => Then((IEnumerable<Action>)tasks);
 
-        public BaseRunner Then(IEnumerable<Task> tasks)
+        public BaseRunner Then(IEnumerable<Action> tasks)
         {
-            throw new System.NotImplementedException();
+            Task thenTasks = tasks.ParallelCombine();
+            ThenRunner runner = new ThenRunner(CombinedTasks, thenTasks);
+            return runner;
         }
 
-        public BaseRunner And(params Task[] tasks) => And((IEnumerable<Task>)tasks);
+        public BaseRunner And(params Action[] tasks) => And((IEnumerable<Action>)tasks);
 
-        public BaseRunner And(IEnumerable<Task> tasks)
+        public BaseRunner And(IEnumerable<Action> tasks)
         {
-            throw new System.NotImplementedException();
+            Task andTasks = tasks.ParallelCombine();
+            AndRunner runner = new AndRunner(CombinedTasks, andTasks);
+            return runner;
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Marathon.Library.Interfaces
 {
     public interface IThen
     {
-        BaseRunner Then(params Task[] tasks);
-        BaseRunner Then(IEnumerable<Task> tasks);
+        BaseRunner Then(params Action[] actions);
+        BaseRunner Then(IEnumerable<Action> actions);
     }
 }
