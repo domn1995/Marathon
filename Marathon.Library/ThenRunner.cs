@@ -7,7 +7,7 @@ namespace Marathon.Library
     {
         public ThenRunner(Task first, Task then)
         {
-            Task thenTask = first.ContinueWith(t => then.Start());
+            Task thenTask = first.ContinueWith(t => then);
             CombinedTasks = thenTask;
         }
     }

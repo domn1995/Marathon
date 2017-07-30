@@ -45,29 +45,42 @@ namespace Marathon.CommandLine
         
         private static async Task Go1()
         {
-            await runner.Run(hello, world, emphasis, emphasis, emphasis, newLine).Async().ConfigureAwait(true);
+            await runner.Run(hello)
+                        .Then(world)
+                        .Then(emphasis)
+                        .And(emphasis)
+                        .And(emphasis)
+                        .Then(newLine)
+                        .Async();
         }
 
         private static void Go2()
         {
-            runner.Run(hello, world, emphasis, emphasis, emphasis, newLine).Sync();
-        }
-
-        private static void Go3()
-        {
             runner.Run(hello)
-                .Sync();
+                  .Then(world)
+                  .And(emphasis)
+                  .And(emphasis)
+                  .And(emphasis)
+                  .Then(newLine)
+                  .Sync();
         }
 
-        private static async Task Go4()
+        private static async Task Go3()
         {
             await runner.Run(hello)
-                .And(world)
-                .And(emphasis)
-                .And(emphasis)
-                .And(emphasis)
-                .Async()
-                .ConfigureAwait(true);
+                        .Then(world)
+                        .And(emphasis, emphasis, emphasis)
+                        .Then(newLine)
+                        .Async();
+        }
+
+        private static void Go4()
+        {
+            runner.Run(hello)
+                  .Then(world)
+                  .Then(emphasis, emphasis, emphasis)
+                  .Then(newLine)
+                  .Sync();            
         }
     }
 }
