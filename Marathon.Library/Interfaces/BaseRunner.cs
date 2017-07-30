@@ -8,17 +8,9 @@ namespace Marathon.Library.Interfaces
     {
         protected Task CombinedTasks { get; set; }
 
-        public Task Async()
-        {
-            CombinedTasks.Start();
-            return CombinedTasks;
-        }
+        public Task Async() => CombinedTasks;
 
-        public void Sync()
-        {
-            CombinedTasks.Start();
-            CombinedTasks.GetAwaiter().GetResult();
-        }
+        public void Sync() => CombinedTasks.GetAwaiter().GetResult();
 
         public BaseRunner Then(params Action[] tasks) => Then((IEnumerable<Action>)tasks);
 
