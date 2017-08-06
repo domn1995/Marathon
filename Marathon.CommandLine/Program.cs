@@ -7,80 +7,49 @@ namespace Marathon.CommandLine
 {
     public static class Program
     {
-        private static readonly Action hello = delegate { Console.Write("Hello "); };
-        private static readonly Action world = () => Console.Write("world");
-        private static readonly Action emphasis = () => Console.Write("!");
-        private static readonly Action newLine = Console.WriteLine;
         private static readonly Runner runner = new Runner();
+        private static Stopwatch sw;
+        private static readonly Action start = () => sw = Stopwatch.StartNew();
+        private static readonly Action stop = () => sw.Stop();
+        private static readonly Action reset = () => sw.Reset();
+
+        private static readonly Action longWait = delegate
+        {
+            Task.Delay(500).GetAwaiter().GetResult();
+            Console.WriteLine($"Long: {sw.Elapsed.Milliseconds}");
+        };
+
+        private static readonly Action shortWait = () => Console.WriteLine($"Short: {sw.Elapsed.Milliseconds}");
 
         public static void Main()
         {
+            SyncWork();
+            UiWork();
+        }
+
+        private static void SyncWork()
+        {
+            runner.Run(start).Then(longWait).Then(longWait).Then(longWait).Then(stop).Sync();
+        }
+
+        private static async Task AsyncWork()
+        {
+            await runner.Run(start).Then(longWait).Then(longWait).Then(longWait).Async();
+        }
+
+        private static void UiWork()
+        {
             while (true)
             {
-                char c = Console.ReadKey(true).KeyChar;
-                switch (c)
-                {
-                    case '1':
-                        Go1();
-                        break;
-                    case '2':
-                        Go2();
-                        break;
-                    case '3':
-                        Go3();
-                        break;
-                    case '4':
-                        Go4();
-                        break;
-                }
-                Console.WriteLine("Done.");
+                Console.Write("\b|");
+                Task.Delay(500).GetAwaiter().GetResult();
+                Console.Write("\b/");
+                Task.Delay(500).GetAwaiter().GetResult();
+                Console.Write("\b-");
+                Task.Delay(500).GetAwaiter().GetResult();
+                Console.Write("\b\\");
+                Task.Delay(500).GetAwaiter().GetResult();
             }
-
-            if (Debugger.IsAttached)
-            {
-                Console.WriteLine("Press enter to quit.");
-                Console.ReadLine();
-            }
-        }
-        
-        private static async Task Go1()
-        {
-            await runner.Run(hello)
-                        .Then(world)
-                        .Then(emphasis)
-                        .And(emphasis)
-                        .And(emphasis)
-                        .Then(newLine)
-                        .Async();
-        }
-
-        private static void Go2()
-        {
-            runner.Run(hello)
-                  .Then(world)
-                  .And(emphasis)
-                  .And(emphasis)
-                  .And(emphasis)
-                  .Then(newLine)
-                  .Sync();
-        }
-
-        private static async Task Go3()
-        {
-            await runner.Run(hello)
-                        .Then(world)
-                        .And(emphasis, emphasis, emphasis)
-                        .Then(newLine)
-                        .Async();
-        }
-
-        private static void Go4()
-        {
-            runner.Run(hello)
-                  .Then(world)
-                  .Then(emphasis, emphasis, emphasis)
-                  .Then(newLine)
-                  .Sync();            
         }
     }
 }
