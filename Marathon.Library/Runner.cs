@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Marathon.Library.Interfaces;
 
@@ -8,11 +6,9 @@ namespace Marathon.Library
 {
     public class Runner : BaseRunner, IRun
     {
-        public BaseRunner Run(params Action[] actions) => Run((IEnumerable<Action>)actions);
-
-        public BaseRunner Run(IEnumerable<Action> actions)
+        public BaseRunner Run(Action action)
         {
-            CombinedTasks = actions.ParallelCombine();
+            CombinedTasks = new Task(action);
             return this;
         }
     }

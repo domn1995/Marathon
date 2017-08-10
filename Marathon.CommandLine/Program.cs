@@ -23,13 +23,14 @@ namespace Marathon.CommandLine
 
         public static void Main()
         {
-            SyncWork();
+            AsyncWork();
             UiWork();
         }
 
         private static void SyncWork()
         {
             runner.Run(start).Then(longWait).Then(longWait).Then(longWait).Then(stop).Sync();
+            Console.WriteLine(sw.Elapsed.TotalMilliseconds);
         }
 
         private static async Task AsyncWork()
