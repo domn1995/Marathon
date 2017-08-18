@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Marathon.Library;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Marathon.Library;
 
 namespace Marathon.CommandLine
 {
@@ -9,33 +9,38 @@ namespace Marathon.CommandLine
     {
         private static readonly Runner runner = new Runner();
         private static Stopwatch sw;
-        private static readonly Action start = () => sw = Stopwatch.StartNew();
-        private static readonly Action stop = () => sw.Stop();
-        private static readonly Action reset = () => sw.Reset();
 
         private static readonly Action longWait = delegate
         {
-            Task.Delay(500).GetAwaiter().GetResult();
-            Console.WriteLine($"Long: {sw.Elapsed.Milliseconds}");
+            Console.WriteLine("Starting long wait...");
+            Task.Delay(5000).Wait();
+            Console.WriteLine($"Long wait time: {sw.Elapsed.TotalMilliseconds}ms");
         };
 
-        private static readonly Action shortWait = () => Console.WriteLine($"Short: {sw.Elapsed.Milliseconds}");
+        private static readonly Action shortWait = delegate
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            Task.Delay(1000).Wait();
+            Console.WriteLine($"Short wait time: {sw.Elapsed.TotalMilliseconds}ms");
+        };
 
         public static void Main()
         {
+            sw = Stopwatch.StartNew();
             AsyncWork();
             UiWork();
         }
 
         private static void SyncWork()
         {
-            runner.Run(start).Then(longWait).Then(longWait).Then(longWait).Then(stop).Sync();
-            Console.WriteLine(sw.Elapsed.TotalMilliseconds);
+            runner.Run(longWait).Then(longWait).Then(longWait).Sync();
+            Console.WriteLine($"{nameof(SyncWork)} done.");
         }
 
         private static async Task AsyncWork()
         {
-            await runner.Run(start).Then(longWait).Then(longWait).Then(longWait).Async();
+            await runner.Run(longWait).Async();
+            Console.WriteLine($"{nameof(AsyncWork)} done.");
         }
 
         private static void UiWork()

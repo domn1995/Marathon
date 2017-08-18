@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Marathon.Library.Interfaces;
 
 namespace Marathon.Library
@@ -8,7 +7,8 @@ namespace Marathon.Library
     {
         public BaseRunner Run(Action action)
         {
-            CombinedTasks = new Task(action);
+            TypedTask run = new TypedTask(TaskType.And, action);
+            Tasks.Add(run);
             return this;
         }
     }
