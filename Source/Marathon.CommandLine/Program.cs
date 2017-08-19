@@ -10,17 +10,20 @@ namespace Marathon.CommandLine
         private static readonly Runner runner = new Runner();
         private static Stopwatch sw;
 
-        private static readonly Action longWait = delegate
+        private static readonly Action l = delegate
         {
+            Console.CursorLeft = 0;
             Console.WriteLine("Starting long wait...");
             Task.Delay(5000).Wait();
+            Console.CursorLeft = 0;
             Console.WriteLine($"Long wait time: {sw.Elapsed.TotalMilliseconds}ms");
         };
 
-        private static readonly Action shortWait = delegate
+        private static readonly Action s = delegate
         {
             Stopwatch sw = Stopwatch.StartNew();
             Task.Delay(1000).Wait();
+            Console.CursorLeft = 0;
             Console.WriteLine($"Short wait time: {sw.Elapsed.TotalMilliseconds}ms");
         };
 
@@ -28,33 +31,35 @@ namespace Marathon.CommandLine
         {
             sw = Stopwatch.StartNew();
             AsyncWork();
-            UiWork();
+            SimulateUiWork();
         }
 
         private static void SyncWork()
         {
-            runner.Run(longWait).Then(longWait).Then(longWait).Sync();
+            runner.Run(l).Then(l).Then(l).Sync();
+            Console.CursorLeft = 0;
             Console.WriteLine($"{nameof(SyncWork)} done.");
         }
 
         private static async Task AsyncWork()
         {
-            await runner.Run(longWait).Async();
+            await runner.Run(l).Then(l).Then(l).Async();
+            Console.CursorLeft = 0;
             Console.WriteLine($"{nameof(AsyncWork)} done.");
         }
 
-        private static void UiWork()
+        private static void SimulateUiWork()
         {
             while (true)
             {
+                Console.Write("\b\b\\ ");
+                Task.Delay(250).Wait();
                 Console.Write("\b|");
-                Task.Delay(500).GetAwaiter().GetResult();
+                Task.Delay(250).Wait();
                 Console.Write("\b/");
-                Task.Delay(500).GetAwaiter().GetResult();
-                Console.Write("\b-");
-                Task.Delay(500).GetAwaiter().GetResult();
-                Console.Write("\b\\");
-                Task.Delay(500).GetAwaiter().GetResult();
+                Task.Delay(250).Wait();
+                Console.Write("\b--");
+                Task.Delay(250).Wait();
             }
         }
     }
