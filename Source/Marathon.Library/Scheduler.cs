@@ -12,7 +12,7 @@ namespace Marathon.Library
     public class Scheduler : IScheduler
     {
         /// <summary>
-        /// Schedules the give tasks for execution.
+        /// Schedules the given tasks for execution.
         /// </summary>
         /// <returns></returns>
         public async Task ScheduleAsync(IEnumerable<ITypedTask> tasks)
