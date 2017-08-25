@@ -12,7 +12,7 @@ namespace Marathon.Library
         /// <summary>
         /// Gets this task's type.
         /// </summary>
-        public TaskType RunType { get; }
+        public RunType RunType { get; }
         /// <summary>
         /// Gets this task.
         /// </summary>
@@ -21,9 +21,9 @@ namespace Marathon.Library
         /// <summary>
         /// Initializes a new instance of the <see cref="TypedTask"/> class with the given parameters.
         /// </summary>
-        /// <param name="runType"></param>
         /// <param name="action"></param>
-        public TypedTask(TaskType runType, Action action)
+        /// <param name="runType"></param>
+        public TypedTask(Action action, RunType runType)
         {
             RunType = runType;
             Task = new Task(action);

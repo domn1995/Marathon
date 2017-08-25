@@ -8,7 +8,7 @@ namespace Marathon.Library.Interfaces
     /// </summary>
     public interface ITypedTask
     {
-        TaskType RunType { get; }
+        RunType RunType { get; }
         Task Task { get; }
     }
 }

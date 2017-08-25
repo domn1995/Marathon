@@ -33,18 +33,6 @@ namespace Marathon.Library.Interfaces
         }
 
         /// <summary>
-        /// Schedules all internal tasks for asynchronous execution and starts them.
-        /// </summary>
-        /// <returns>A single <see cref="Task"/> that completes when all schedule tasks complete.</returns>
-        public Task Async() => scheduler.ScheduleAsync(Tasks);
-
-        /// <summary>
-        /// Schedules all internal tasks for execution and synchronously waits for all of them to finish.
-        /// </summary>
-        /// <remarks>This method will block the calling thread.</remarks>
-        public void Sync() => scheduler.ScheduleAsync(Tasks).GetAwaiter().GetResult();
-
-        /// <summary>
         /// Schedules a new task that starts executing the given <see cref="Action"/> 
         /// after the previously scheduled task(s) have finished.
         /// </summary>
@@ -52,7 +40,7 @@ namespace Marathon.Library.Interfaces
         /// <returns></returns>
         public BaseRunner Then(Action action)
         {
-            TypedTask then = new TypedTask(TaskType.Then, action);
+            TypedTask then = new TypedTask(action, RunType.Then);
             Tasks.Add(then);
             return this;
         }
@@ -65,9 +53,21 @@ namespace Marathon.Library.Interfaces
         /// <returns></returns>
         public BaseRunner And(Action action)
         {
-            TypedTask and = new TypedTask(TaskType.And, action);
+            TypedTask and = new TypedTask(action, RunType.And);
             Tasks.Add(and);
             return this;
         }
+
+        /// <summary>
+        /// Schedules all internal tasks for asynchronous execution and starts them.
+        /// </summary>
+        /// <returns>A single <see cref="Task"/> that completes when all schedule tasks complete.</returns>
+        public Task Async() => scheduler.ScheduleAsync(Tasks);
+
+        /// <summary>
+        /// Schedules all internal tasks for execution and synchronously waits for all of them to finish.
+        /// </summary>
+        /// <remarks>This method will block the calling thread.</remarks>
+        public void Sync() => scheduler.ScheduleAsync(Tasks).GetAwaiter().GetResult();
     }
 }

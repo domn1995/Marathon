@@ -10,7 +10,7 @@ namespace Marathon.Library
     {
         public BaseRunner Run(Action action)
         {
-            TypedTask run = new TypedTask(TaskType.And, action);
+            TypedTask run = new TypedTask(action, RunType.And);
             Tasks.Add(run);
             return this;
         }

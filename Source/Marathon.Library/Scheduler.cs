@@ -26,12 +26,12 @@ namespace Marathon.Library
                 Task nextTask;
                 switch (action.RunType)
                 {
-                    case TaskType.And:
+                    case RunType.And:
                         nextTask = action.Task;
                         nextTask.Start();
                         combinedTask = Task.WhenAll(combinedTask, nextTask);
                         break;
-                    case TaskType.Then:
+                    case RunType.Then:
                         nextTask = action.Task;
                         await combinedTask.ConfigureAwait(false);
                         nextTask.Start();

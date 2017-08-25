@@ -3,7 +3,7 @@
     /// <summary>
     /// Enumerates the possible execution methods of a typed task.
     /// </summary>
-    public enum TaskType
+    public enum RunType
     {
         And,
         Then,
