@@ -24,7 +24,7 @@ Hello World
     // `Then()` waits for the previous Task to finish before starting.
     // `And()` starts running the given delegate at the same time as the previous one.
     // `Sync()` waits for all the tasks to finish, blocking the current thread.
-    runner.Run(h)
+    runner.Run(hello)
           .Then(world)
           .Then(emphasis)
           .And(emphasis)
