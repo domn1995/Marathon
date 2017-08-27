@@ -13,25 +13,26 @@ Installation
    
 Hello World
 ---
-    // Create some Actions to execute.
-    Action hello = delegate { Console.Write("Hello, "); }
-    Action world = delegate { Console.Write("world"); }
-    Action emphasis = delegate { Console.Write("!"); }
-    Action nl = delegate { Console.WriteLine(); }
-    // The 'Runner' class builds and runs tasks from the given Actions.
-    Runner runner = new Runner();
-    // `Run()` starts building and running the given delegates.
-    // `Then()` waits for the previous Task to finish before starting.
-    // `And()` starts running the given delegate at the same time as the previous one.
-    // `Sync()` waits for all the tasks to finish, blocking the current thread.
-    runner.Run(hello)
-          .Then(world)
-          .Then(emphasis)
-          .And(emphasis)
-          .And(emphasis)
-          .Then(nl)
-          .Sync();
-
+```csharp
+  // Create some Actions to execute.
+  Action hello = delegate { Console.Write("Hello, "); }
+  Action world = delegate { Console.Write("world"); }
+  Action emphasis = delegate { Console.Write("!"); }
+  Action nl = delegate { Console.WriteLine(); }
+  // The 'Runner' class builds and runs tasks from the given Actions.
+  Runner runner = new Runner();
+  // `Run()` starts building and running the given delegates.
+  // `Then()` waits for the previous Task to finish before starting.
+  // `And()` starts running the given delegate at the same time as the previous one.
+  // `Sync()` waits for all the tasks to finish, blocking the current thread.
+  runner.Run(hello)
+        .Then(world)
+        .Then(emphasis)
+        .And(emphasis)
+        .And(emphasis)
+        .Then(nl)
+        .Sync();
+```
 Output:
 
     > Hello, world!!!
