@@ -20,18 +20,14 @@ Hello World
   Action emphasis = delegate { Console.Write("!"); }
   Action nl = delegate { Console.WriteLine(); }
   // The 'Runner' class builds and runs tasks from the given Actions.
-  Runner runner = new Runner();
-  // `Run()` starts building and running the given delegates.
-  // `Then()` waits for the previous Task to finish before starting.
-  // `And()` starts running the given delegate at the same time as the previous one.
-  // `Sync()` waits for all the tasks to finish, blocking the current thread.
-  runner.Run(hello)
-        .Then(world)
+  Runner runner = new Runner();  
+  runner.Run(hello)     // `Run()` starts building and running the given delegates.
+        .Then(world)    // `Then()` waits for the previous Task to finish before starting.
         .Then(emphasis)
-        .And(emphasis)
+        .And(emphasis)  // `And()` starts running the given delegate at the same time as the previous one.
         .And(emphasis)
         .Then(nl)
-        .Sync();
+        .Sync();        // `Sync()` waits for all the tasks to finish, blocking the current thread.
 ```
 Output:
 
