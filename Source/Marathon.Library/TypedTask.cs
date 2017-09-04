@@ -13,6 +13,7 @@ namespace Marathon.Library
         /// Gets this task's type.
         /// </summary>
         public RunType RunType { get; }
+
         /// <summary>
         /// Gets this task.
         /// </summary>

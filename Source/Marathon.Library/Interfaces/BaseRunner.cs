@@ -84,7 +84,7 @@ namespace Marathon.Library.Interfaces
         /// <summary>
         /// Schedules and starts all internal tasks for asynchronous execution.
         /// </summary>
-        /// <returns>A single <see cref="Task"/> that completes when all scheduled tasks complete.</returns>
+        /// <returns>A <see cref="Task"/> that completes when all scheduled tasks complete.</returns>
         public Task Async() => scheduler.ScheduleAsync(Tasks);
 
         /// <summary>
