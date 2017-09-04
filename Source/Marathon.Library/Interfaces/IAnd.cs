@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Marathon.Library.Interfaces
 {
@@ -7,6 +9,7 @@ namespace Marathon.Library.Interfaces
     /// </summary>
     public interface IAnd
     {
-        BaseRunner And(Action action);
+        BaseRunner And(params Action[] actions);
+        BaseRunner And(IEnumerable<Action> actions);
     }
 }

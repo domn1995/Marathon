@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Marathon.Library.Interfaces;
 
 namespace Marathon.Library
@@ -8,10 +9,25 @@ namespace Marathon.Library
     /// </summary>
     public class Runner : BaseRunner, IRun
     {
-        public BaseRunner Run(Action action)
+        /// <summary>
+        /// Adds the given actions as tasks to be scheduling and run.
+        /// </summary>
+        /// <param name="actions"></param>
+        /// <returns></returns>
+        public BaseRunner Run(params Action[] actions) => Run((IEnumerable<Action>)actions);
+
+        /// <summary>
+        /// Adds the given actions as tasks to be scheduling and run.
+        /// </summary>
+        /// <param name="actions"></param>
+        /// <returns></returns>
+        public BaseRunner Run(IEnumerable<Action> actions)
         {
-            TypedTask run = new TypedTask(action, RunType.And);
-            Tasks.Add(run);
+            foreach (Action action in actions)
+            {
+                TypedTask task = new TypedTask(action, RunType.And);
+                Tasks.Add(task);
+            }
             return this;
         }
     }

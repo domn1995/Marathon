@@ -34,39 +34,61 @@ namespace Marathon.Library.Interfaces
         }
 
         /// <summary>
-        /// Schedules a new task that starts executing the given <see cref="Action"/> 
-        /// after the previously scheduled task(s) have finished.
+        /// Schedules new tasks that start executing the given <see cref="Action"/>s 
+        /// in parallel after the previously scheduled task(s) have finished.
         /// </summary>
-        /// <param name="action"></param>
-        /// <returns></returns>
-        public BaseRunner Then(Action action)
+        /// <param name="actions">A collection of one or more actions to be run.</param>
+        /// <returns>A <see cref="BaseRunner"/> ready to schedule tasks for execution.</returns>
+        public BaseRunner Then(params Action[] actions) => Then((IEnumerable<Action>) actions);
+
+        /// <summary>
+        /// Schedules new tasks that start executing the given <see cref="Action"/>s 
+        /// in parallel after the previously scheduled task(s) have finished.
+        /// </summary>
+        /// <param name="actions">A collection of actions to be run.</param>
+        /// <returns>A <see cref="BaseRunner"/> ready to schedule tasks for execution.</returns>
+        public BaseRunner Then(IEnumerable<Action> actions)
         {
-            TypedTask then = new TypedTask(action, RunType.Then);
-            Tasks.Add(then);
+            foreach (Action action in actions)
+            {
+                TypedTask task = new TypedTask(action, RunType.Then);
+                Tasks.Add(task);
+            }
             return this;
         }
 
         /// <summary>
-        /// Schedules a new task that starts executing the given <see cref="Action"/>
-        /// at the same time as as the previously scheduled task(s).
+        /// Schedules the given actions to start executing 
+        /// at the same time as as the previously scheduled action(s).
         /// </summary>
-        /// <param name="action"></param>
+        /// <param name="actions"></param>
         /// <returns></returns>
-        public BaseRunner And(Action action)
+        public BaseRunner And(params Action[] actions) => And((IEnumerable<Action>)actions);
+
+        /// <summary>
+        /// Schedules the given actions to start executing 
+        /// at the same time as as the previously scheduled action(s).
+        /// </summary>
+        /// <param name="actions"></param>
+        /// <returns></returns>
+        public BaseRunner And(IEnumerable<Action> actions)
         {
-            TypedTask and = new TypedTask(action, RunType.And);
-            Tasks.Add(and);
+            foreach (Action action in actions)
+            {
+                TypedTask task = new TypedTask(action, RunType.And);
+                Tasks.Add(task);
+            }
             return this;
         }
 
         /// <summary>
-        /// Schedules all internal tasks for asynchronous execution and starts them.
+        /// Schedules and starts all internal tasks for asynchronous execution.
         /// </summary>
         /// <returns>A single <see cref="Task"/> that completes when all scheduled tasks complete.</returns>
         public Task Async() => scheduler.ScheduleAsync(Tasks);
 
         /// <summary>
-        /// Schedules all internal tasks for execution and synchronously waits for all of them to finish.
+        /// Schedules and starts all internal tasks and synchronously waits for all of them to finish.
         /// </summary>
         /// <remarks>This method will block the calling thread.</remarks>
         public void Sync() => scheduler.ScheduleAsync(Tasks).GetAwaiter().GetResult();

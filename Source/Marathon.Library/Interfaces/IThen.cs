@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Marathon.Library.Interfaces
 {
@@ -7,6 +9,7 @@ namespace Marathon.Library.Interfaces
     /// </summary>
     public interface IThen
     {
-        BaseRunner Then(Action action);
+        BaseRunner Then(params Action[] actions);
+        BaseRunner Then(IEnumerable<Action> actions);
     }
 }
