@@ -9,7 +9,7 @@ Compatibility
   
 Installation
 ---
-   - Nuget: coming soon!
+   - NuGet: coming soon!
    
 Hello World
 ---
@@ -43,6 +43,10 @@ Marathon tasks are built starting with the `Runner` class. As the only class tha
 `Then`s are the implementation of the `IThen` interface and tell the scheduler that the given `Action` should only be run after the previous `Action` has finished. These can be chained as many times as desired. For example, `BaseRunner tasks = runner.Run(action1).Then(action2).Then(action3)` would build `tasks` to run `action1`, then `action2`, and finally `action3` once either the `Sync()` or `Async()` method is invoked.
 
 Lastly, the crème de la crème that makes Marathon special: the ability to transparently execute the scheduled tasks synchronously or asynchronously. This is possible because the `BaseRunner` class implements the `ISync` and `IAsync` interfaces. These two interfaces expose the `Sync()` and `Async()` methods, respectively, and end the chain of a `Runner`'s tasks. The `Sync()` method schedules the tasks to be executed synchronously, blocking the current thread. Alternatively, the `Async()` method schedules the tasks to be executed asynchronously, just how you'd expect normal async methods in .NET to work. 
+
+Examples
+---
+Coming soon!
 
 Changes
 ---
