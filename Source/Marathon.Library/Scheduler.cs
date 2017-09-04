@@ -17,28 +17,28 @@ namespace Marathon.Library
         /// <returns></returns>
         public async Task ScheduleAsync(IEnumerable<ITypedTask> tasks)
         {
-            List<ITypedTask> taskList = tasks.ToList();
-            Task combinedTask = taskList[0].Task;
+            List<ITypedTask> typedTasks = tasks.ToList();
+            Task combinedTask = typedTasks[0].Task;
             combinedTask.Start();
 
-            foreach (ITypedTask action in taskList.Skip(1))
+            foreach (ITypedTask typedTask in typedTasks.Skip(1))
             {
                 Task nextTask;
-                switch (action.RunType)
+                switch (typedTask.RunType)
                 {
                     case RunType.And:
-                        nextTask = action.Task;
+                        nextTask = typedTask.Task;
                         nextTask.Start();
                         combinedTask = Task.WhenAll(combinedTask, nextTask);
                         break;
                     case RunType.Then:
-                        nextTask = action.Task;
+                        nextTask = typedTask.Task;
                         await combinedTask.ConfigureAwait(false);
                         nextTask.Start();
                         combinedTask = nextTask;
                         break;
                     default:
-                        throw new ArgumentException(nameof(action));
+                        throw new ArgumentException(nameof(typedTask));
                 }
             }
             await combinedTask.ConfigureAwait(false);

@@ -21,7 +21,6 @@ namespace Marathon.CommandLine
 
         private static readonly Action s = delegate
         {
-            Stopwatch sw = Stopwatch.StartNew();
             Task.Delay(1000).Wait();
             Console.CursorLeft = 0;
             Console.WriteLine($"Short wait time: {sw.Elapsed.TotalMilliseconds}ms");
@@ -30,22 +29,22 @@ namespace Marathon.CommandLine
         public static void Main()
         {
             sw = Stopwatch.StartNew();
-            AsyncWork();
+            AndWorkAsync();
             SimulateUiWork();
         }
 
-        private static void SyncWork()
+        private static void ThenWorkSync()
         {
-            runner.Run(l).Then(l).Then(l).Sync();
+            runner.Run(l).Then(l, l, l).Sync();
             Console.CursorLeft = 0;
-            Console.WriteLine($"{nameof(SyncWork)} done.");
+            Console.WriteLine($"{nameof(ThenWorkSync)} done.");
         }
 
-        private static async Task AsyncWork()
+        private static async Task AndWorkAsync()
         {
-            await runner.Run(l).Then(l).Then(l).Async();
+            await runner.Run(l).And(l, l, l).Async();
             Console.CursorLeft = 0;
-            Console.WriteLine($"{nameof(AsyncWork)} done.");
+            Console.WriteLine($"{nameof(AndWorkAsync)} done.");
         }
 
         private static void SimulateUiWork()
