@@ -10,6 +10,7 @@ namespace Marathon.Library.Interfaces
     public abstract class BaseRunner : IAsync, ISync, IThen, IAnd
     {
         private readonly IScheduler scheduler;
+
         /// <summary>
         /// Gets the list of tasks to be run.
         /// </summary>
@@ -61,7 +62,7 @@ namespace Marathon.Library.Interfaces
         /// <summary>
         /// Schedules all internal tasks for asynchronous execution and starts them.
         /// </summary>
-        /// <returns>A single <see cref="Task"/> that completes when all schedule tasks complete.</returns>
+        /// <returns>A single <see cref="Task"/> that completes when all scheduled tasks complete.</returns>
         public Task Async() => scheduler.ScheduleAsync(Tasks);
 
         /// <summary>
