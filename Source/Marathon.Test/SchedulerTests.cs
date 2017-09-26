@@ -9,7 +9,7 @@ namespace Marathon.Test
     [TestClass]
     public class SchedulerTests
     {
-        private static readonly MyStopwatch lapper = new MyStopwatch();
+        private static readonly Lapper lapper = new Lapper();
 
         private static readonly Action s = delegate
         {
@@ -23,21 +23,18 @@ namespace Marathon.Test
             lapper.Lap();
         };
 
-        private static Action lap = delegate
-        {
-            lapper.Lap();
-        };
-
         [TestMethod]
         public void TestShortThensSync_AverageApprox500Ms()
         {
             Runner runner = new Runner();
             lapper.Restart();
             runner.Run(s).Then(s, s, s).Sync();
+            lapper.Stop();
             Assert.IsTrue(lapper.Laps.Count == 4);
-            TimeAssert.DeltaEquals(TimeSpan.FromMilliseconds(500), lapper.LapMean(), 0.025);
-            TimeAssert.DeltaEquals(TimeSpan.FromMilliseconds(500), lapper.LapMin(), 0.025);
-            TimeAssert.DeltaEquals(TimeSpan.FromMilliseconds(500), lapper.LapMax(), 0.025);
+            foreach (TimeSpan lap in lapper.Laps)
+            {
+                TimeAssert.DeltaEquals(TimeSpan.FromMilliseconds(500), lap, 0.1);
+            }
         }
 
         [TestMethod]
@@ -46,10 +43,12 @@ namespace Marathon.Test
             Runner runner = new Runner();
             lapper.Restart();
             runner.Run(l).Then(l).Sync();
+            lapper.Stop();
             Assert.IsTrue(lapper.Laps.Count == 2);
-            TimeAssert.DeltaEquals(TimeSpan.FromMilliseconds(2500), lapper.LapMean(), 0.025);
-            TimeAssert.DeltaEquals(TimeSpan.FromMilliseconds(2500), lapper.LapMin(), 0.025);
-            TimeAssert.DeltaEquals(TimeSpan.FromMilliseconds(2500), lapper.LapMax(), 0.025);
+            foreach (TimeSpan lap in lapper.Laps)
+            {
+                TimeAssert.DeltaEquals(TimeSpan.FromMilliseconds(2500), lap, 0.025);
+            }
         }
     }
 }

@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace Marathon.Test
 {
-    public class MyStopwatch : Stopwatch
+    public class Lapper : Stopwatch
     {
         private readonly Stopwatch lapper = new Stopwatch();
         public List<TimeSpan> Laps { get; private set; } = new List<TimeSpan>();
 
-        public MyStopwatch() { }
+        public Lapper() { }
 
         public void Lap()
         {
@@ -35,6 +35,12 @@ namespace Marathon.Test
         {
             base.Start();
             lapper.Start();
+        }
+
+        public new void Stop()
+        {
+            base.Stop();
+            lapper.Stop();
         }
     }
 }
