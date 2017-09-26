@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Marathon.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
