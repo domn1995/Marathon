@@ -51,4 +51,4 @@ Coming soon!
 Changes
 ---
   - Updated README file.
-  - Tenatively finished initial pre-release.
+  - Tentatively finished initial pre-release.
