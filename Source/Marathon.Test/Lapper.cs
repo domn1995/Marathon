@@ -5,30 +5,39 @@ using System.Linq;
 
 namespace Marathon.Test
 {
-    public class Lapper : Stopwatch
+    public class Lapper : Stopwatch, IDisposable
     {
         private readonly Stopwatch lapper = new Stopwatch();
         public List<TimeSpan> Laps { get; private set; } = new List<TimeSpan>();
 
         public Lapper() { }
 
-        public void Lap()
+        public TimeSpan Lap()
         {
-            Laps.Add(lapper.Elapsed);
+            TimeSpan elapsed = lapper.Elapsed;
+            Laps.Add(elapsed);
             lapper.Restart();
+            return elapsed;
         }
 
-        public TimeSpan LapMean() => TimeSpan.FromMilliseconds(Laps.Average(t => t.TotalMilliseconds));
+        public TimeSpan Mean() => TimeSpan.FromMilliseconds(Laps.Average(t => t.TotalMilliseconds));
 
-        public TimeSpan LapMax() => TimeSpan.FromMilliseconds(Laps.Max(t => t.TotalMilliseconds));
+        public TimeSpan Max() => TimeSpan.FromMilliseconds(Laps.Max(t => t.TotalMilliseconds));
 
-        public TimeSpan LapMin() => TimeSpan.FromMilliseconds(Laps.Min(t => t.TotalMilliseconds));
+        public TimeSpan Min() => TimeSpan.FromMilliseconds(Laps.Min(t => t.TotalMilliseconds));
 
         public new void Restart()
         {
             Laps = new List<TimeSpan>();
             base.Restart();
             lapper.Restart();
+        }
+
+        public new static Lapper StartNew()
+        {
+            Lapper lapper = new Lapper();
+            lapper.Start();
+            return lapper;
         }
 
         public new void Start()
@@ -41,6 +50,11 @@ namespace Marathon.Test
         {
             base.Stop();
             lapper.Stop();
+        }
+
+        public void Dispose()
+        {
+            Stop();
         }
     }
 }
