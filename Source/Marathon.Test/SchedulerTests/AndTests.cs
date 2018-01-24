@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Marathon.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Marathon.Test.SchedulerTests
@@ -11,7 +9,7 @@ namespace Marathon.Test.SchedulerTests
     public class AndTests : TestsBase
     {
         [TestMethod]
-        public void TestAndsSync_Average500MsTotal500Ms()
+        public void Test4AndsSync500MsEach500MsTotal()
         {
             // Execute the runner synchronously.
             Runner.Run(S).And(S, S, S).Sync();
@@ -29,7 +27,7 @@ namespace Marathon.Test.SchedulerTests
         }
 
         [TestMethod]
-        public async Task TestAndsAsync_Average500MsTotal500Ms()
+        public async Task Test4AndsAsync500MsEach500MsTotal()
         {
             // Start the runner asynchronously.
             Task t = Runner.Run(S).And(S, S, S).Async();
@@ -49,7 +47,7 @@ namespace Marathon.Test.SchedulerTests
             {
                 TimeAssert.DeltaEquals(TimeSpan.FromMilliseconds(500), lap, 0.1);
             }
-            // And the total time should be 4 | 500ms = 500ms, since the tasks were all run in parallel.
+            // And the elapsed time should be 500ms since the tasks were all run in parallel.
             TimeAssert.DeltaEquals(TimeSpan.FromMilliseconds(500), Lapper.Elapsed, 0.1);
         }
     }

@@ -9,7 +9,7 @@ namespace Marathon.Test.SchedulerTests
     public class ThenTests : TestsBase
     {
         [TestMethod]
-        public void TestThensSync_Average500MsTotal2000Ms()
+        public void Test4ThensSync500MsEach2000MsTotal()
         {
             // Run the four runner tasks synchronously.
             Runner.Run(S).Then(S, S, S).Sync();
@@ -27,7 +27,7 @@ namespace Marathon.Test.SchedulerTests
         }
 
         [TestMethod]
-        public async Task TestThensAsync_Average500MsTotal2000Ms()
+        public async Task Test4ThensAsync500MsEach2000MsTotal()
         {
             // Starting the lappting stopwatch.
             Lapper.Restart();
