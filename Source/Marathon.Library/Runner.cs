@@ -10,14 +10,14 @@ namespace Marathon.Library
     public class Runner : BaseRunner, IRun
     {
         /// <summary>
-        /// Adds the given actions as tasks to be scheduling and run.
+        /// Adds the given actions as tasks to be scheduled and run.
         /// </summary>
         /// <param name="actions"></param>
         /// <returns></returns>
         public BaseRunner Run(params Action[] actions) => Run((IEnumerable<Action>)actions);
 
         /// <summary>
-        /// Adds the given actions as tasks to be scheduling and run.
+        /// Adds the given actions as tasks to be scheduled and run.
         /// </summary>
         /// <param name="actions"></param>
         /// <returns></returns>
@@ -28,6 +28,13 @@ namespace Marathon.Library
                 TypedTask task = new TypedTask(action, RunType.And);
                 Tasks.Add(task);
             }
+            return this;
+        }
+
+        public BaseRunner Run(int delay)
+        {
+            TypedTask task = new TypedTask(delay);
+            Tasks.Add(task);
             return this;
         }
     }

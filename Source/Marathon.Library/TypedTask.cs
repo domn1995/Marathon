@@ -29,5 +29,12 @@ namespace Marathon.Library
             RunType = runType;
             Task = new Task(action);
         }
+
+        public TypedTask(int delay)
+        {
+            RunType = RunType.Then;
+            Action action = delegate { Task.Delay(delay).Wait(); };
+            Task = new Task(action);
+        }
     }
 }

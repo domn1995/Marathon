@@ -29,8 +29,6 @@ namespace Marathon.Test.SchedulerTests
         [TestMethod]
         public async Task Test4ThensAsync500MsEach2000MsTotal()
         {
-            // Starting the lappting stopwatch.
-            Lapper.Restart();
             // Start the runner asynchronously.
             Task t = Runner.Run(S).Then(S, S, S).Async();
             // Take a lap right away. This should be only a few milliseconds in
@@ -51,6 +49,14 @@ namespace Marathon.Test.SchedulerTests
             }
             // ... And the total time should have been about 4 x 500ms = 2000ms.
             TimeAssert.DeltaEquals(TimeSpan.FromMilliseconds(2000), Lapper.Elapsed, 0.1);
+        }
+
+        [TestMethod]
+        public void TestThenDelaySync100MsEach500MsTotal()
+        {
+            Runner.Run(100).Then(100).Then(100).Then(100).Then(100).Sync();
+            Lapper.Stop();
+            TimeAssert.DeltaEquals(TimeSpan.FromMilliseconds(500), Lapper.Elapsed, 0.25);
         }
     }
 }

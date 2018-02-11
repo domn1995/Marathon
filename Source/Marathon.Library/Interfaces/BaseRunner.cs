@@ -57,6 +57,13 @@ namespace Marathon.Library.Interfaces
             return this;
         }
 
+        public BaseRunner Then(int delay)
+        {
+            TypedTask task = new TypedTask(delay);
+            Tasks.Add(task);
+            return this;
+        }
+
         /// <summary>
         /// Schedules the given actions to start executing 
         /// at the same time as as the previously scheduled action(s).

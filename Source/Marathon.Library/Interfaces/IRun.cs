@@ -10,5 +10,6 @@ namespace Marathon.Library.Interfaces
     {
         BaseRunner Run(params Action[] actions);
         BaseRunner Run(IEnumerable<Action> actions);
+        BaseRunner Run(int delay);
     }
 }
