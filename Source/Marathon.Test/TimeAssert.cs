@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Marathon.Test
 {
@@ -12,7 +11,7 @@ namespace Marathon.Test
             double epsilonMs = epsilon.TotalMilliseconds / 2;
             if (actualMs < expectedMs - epsilonMs || actualMs > expectedMs + epsilonMs)
             {
-                throw new AssertFailedException($"Actual time of {actualMs}ms is outside of the expected time of {expectedMs}ms±{epsilonMs}ms.");
+                throw new TimeAssertException($"Actual time of {actualMs}ms is outside of the expected time of {expectedMs}ms±{epsilonMs}ms.");
             }
             Console.WriteLine($"Actual time {actualMs}ms. Expected time: {expectedMs}ms. Epsilon ±{epsilonMs}ms.");
         }

@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Marathon.Library;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Marathon.Test.SchedulerTests
 {
-    [TestClass]
     public abstract class TestsBase
     {
+        private readonly object locker = new object();
         protected List<TimeSpan> Laps;
         protected Lapper Lapper;
         protected Runner Runner;
 
-        [TestInitialize]
-        public virtual void TestInitialize()
+        public virtual void Initialize()
         {
             Laps = new List<TimeSpan>();
             Lapper = Lapper.StartNew();
@@ -26,7 +24,10 @@ namespace Marathon.Test.SchedulerTests
             using (Lapper l = Lapper.StartNew())
             {
                 Task.Delay(500).GetAwaiter().GetResult();
-                Laps.Add(l.Lap());
+                lock (locker)
+                {
+                    Laps.Add(l.Lap());
+                }
             }
         }
 
@@ -35,7 +36,10 @@ namespace Marathon.Test.SchedulerTests
             using (Lapper l = Lapper.StartNew())
             {
                 Task.Delay(1000).GetAwaiter().GetResult();
-                Laps.Add(l.Lap());
+                lock (locker)
+                {
+                    Laps.Add(l.Lap());
+                }
             }
         }
     }
