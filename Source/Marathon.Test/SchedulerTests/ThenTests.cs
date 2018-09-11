@@ -5,6 +5,9 @@ using Xunit;
 
 namespace Marathon.Test.SchedulerTests
 {
+    /// <summary>
+    /// Tests that the scheduler correctly schedules Then tasks.
+    /// </summary>
     public class ThenTests : TestsBase
     {
         [Fact]

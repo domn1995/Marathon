@@ -31,6 +31,11 @@ namespace Marathon.Library
             return this;
         }
 
+        /// <summary>
+        /// Schedules a delay.
+        /// </summary>
+        /// <param name="delay">The delay in milliseconds.</param>
+        /// <returns>A <see cref="BaseRunner"/> ready to schedule tasks for execution.</returns>
         public BaseRunner Run(int delay)
         {
             TypedTask task = new TypedTask(delay);

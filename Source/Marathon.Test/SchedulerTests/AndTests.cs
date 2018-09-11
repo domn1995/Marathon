@@ -5,6 +5,9 @@ using Xunit;
 
 namespace Marathon.Test.SchedulerTests
 {
+    /// <summary>
+    /// Tests that the scheduler correctly schedules And tasks.
+    /// </summary>
     public class AndTests : TestsBase
     {
         [Fact]
@@ -39,7 +42,7 @@ namespace Marathon.Test.SchedulerTests
             await t.ConfigureAwait(false);
             Lapper.Stop();
             // The async lap (first lap) should have been only a few ms after its stopwatch started.
-            TimeAssert.DeltaEquals(TimeSpan.FromMilliseconds(25), Laps[0], TimeSpan.FromMilliseconds(50));
+            TimeAssert.EpsilonEquals(TimeSpan.FromMilliseconds(25), Laps[0], TimeSpan.FromMilliseconds(50));
             // We should have one lap per task run.
             Assert.True(Laps.Count == 5);
             // Each lap should be about 500ms...

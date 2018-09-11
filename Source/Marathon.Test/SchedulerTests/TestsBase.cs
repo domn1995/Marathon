@@ -5,20 +5,29 @@ using Marathon.Library;
 
 namespace Marathon.Test.SchedulerTests
 {
+    /// <summary>
+    /// Provides the base functionality of the scheduler tests.
+    /// </summary>
     public abstract class TestsBase
     {
         private readonly object locker = new object();
-        protected List<TimeSpan> Laps;
-        protected Lapper Lapper;
-        protected Runner Runner;
+        protected List<TimeSpan> Laps { get; private set; }
+        protected Lapper Lapper { get; private set; }
+        protected Runner Runner { get; private set; }
 
-        public virtual void Initialize()
+        /// <summary>
+        /// Initializes a new test.
+        /// </summary>
+        protected virtual void Initialize()
         {
             Laps = new List<TimeSpan>();
             Lapper = Lapper.StartNew();
             Runner = new Runner();
         }
 
+        /// <summary>
+        /// Synchronously waits 500ms then laps the timer. S stands for 'short'.
+        /// </summary>
         protected void S()
         {
             using (Lapper l = Lapper.StartNew())
@@ -31,6 +40,9 @@ namespace Marathon.Test.SchedulerTests
             }
         }
 
+        /// <summary>
+        /// Synchronously waits 1000ms then laps the timer. L stands for 'long'.
+        /// </summary>
         protected void L()
         {
             using (Lapper l = Lapper.StartNew())

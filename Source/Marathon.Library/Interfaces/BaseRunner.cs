@@ -57,6 +57,11 @@ namespace Marathon.Library.Interfaces
             return this;
         }
 
+        /// <summary>
+        /// Schedules a delay to start executing after the previously scheduled task(s) have finished.
+        /// </summary>
+        /// <param name="delay">The delay in milliseconds.</param>
+        /// <returns>A <see cref="BaseRunner"/> ready to schedule tasks for execution.</returns>
         public BaseRunner Then(int delay)
         {
             TypedTask task = new TypedTask(delay);
