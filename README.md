@@ -46,7 +46,7 @@ Lastly, the crème de la crème that makes Marathon special: the ability to tran
 
 Examples
 ---
-Coming soon!
+See the wiki [here](https://github.com/domn1995/Marathon/wiki/Examples).
 
 Changes
 ---
