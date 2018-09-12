@@ -50,5 +50,6 @@ See [here](https://github.com/domn1995/Marathon/wiki/Examples) in the wiki.
 
 Changes
 ---
+  - Added examples to wiki.
   - Updated README file.
   - Tentatively finished initial pre-release.
