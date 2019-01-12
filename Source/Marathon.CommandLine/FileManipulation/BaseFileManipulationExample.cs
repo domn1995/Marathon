@@ -10,7 +10,7 @@ namespace Marathon.CommandLine.FileManipulation
     {
         protected static string DirectoryPath => @"../../../../Marathon.CommandLine/Files";
         protected static Action StartAction => () => { Console.WriteLine($"[{Now}] Beginning file manipulation."); };
-        protected static Action EndAction => () => { Console.WriteLine($"[{Now}] Done manipulating all files."); };
+        protected virtual Action EndAction => () => { Console.WriteLine($"[{Now}] Done manipulating all files."); };
         protected static List<FileInfo> Files => new DirectoryInfo(DirectoryPath).EnumerateFiles().ToList();
         protected static IList<Action> FileActions => GetFileManipulations(Files).ToList();
         /// <summary>

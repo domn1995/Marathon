@@ -8,7 +8,7 @@ namespace Marathon.CommandLine
     {
         public static async Task Main(string[] args)
         {
-            if (int.TryParse(args[0], out int result))
+            if (args.Length > 0 && int.TryParse(args[0], out int result))
             {
                 switch (result)
                 {
@@ -19,10 +19,16 @@ namespace Marathon.CommandLine
                         await new SynchronousParallelFileManipulation().Go();
                         break;
                     case 3:
-                        // Asynchronous Sequential File Manipulation.
+                        Task task = new AsynchronousSequentialFileManipulation().Go();
+                        Console.WriteLine("File manipulation tasks started asynchronously. Doing other stuff...");
+                        await task;
+                        Console.WriteLine("Back in Main().");
                         break;
                     case 4:
-                        // Asynchronous Parallel File Manipulation.
+                        Task task2 = new AsynchronousParallelFileManipulation().Go();
+                        Console.WriteLine("File manipulation tasks started asynchronously. Doing other stuff...");
+                        await task2;
+                        Console.WriteLine("Back in Main().");
                         break;
                     default:
                         PrintHelp();
