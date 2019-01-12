@@ -3,42 +3,22 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Marathon.Library;
 
-namespace Marathon.CommandLine
+namespace Marathon.CommandLine.FileManipulation
 {
-    public static class SynchronousSequentialFileManipulation
+    public abstract class BaseFileManipulationExample : BaseExample
     {
-        /// <summary>
-        /// Gets the current time.
-        /// </summary>
-        public static string Now => DateTime.Now.ToString("HH:mm:ss.fff");
-
-        /// <summary>
-        /// Performs a sequential file read and parse synchronously.
-        /// </summary>
-        public static void Go()
-        {
-            const string dirPath = @"../../../../Marathon.CommandLine/Files";
-            var dirInfo = new DirectoryInfo(dirPath);
-            List<FileInfo> files = dirInfo.EnumerateFiles().ToList();
-            Action start = () => { Console.WriteLine($"[{Now}] Beginning file manipulation."); };
-            IEnumerable<Action> fileActions = GetFileManipulations(files);
-            Action end = () => { Console.WriteLine($"[{Now}] Done manipulating all files."); };
-
-            Runner runner = new Runner();
-            runner.Run(start)
-                  .Then(fileActions)
-                  .Then(end)
-                  .Sync();
-        }
-
+        protected static string DirectoryPath => @"../../../../Marathon.CommandLine/Files";
+        protected static Action StartAction => () => { Console.WriteLine($"[{Now}] Beginning file manipulation."); };
+        protected static Action EndAction => () => { Console.WriteLine($"[{Now}] Done manipulating all files."); };
+        protected static List<FileInfo> Files => new DirectoryInfo(DirectoryPath).EnumerateFiles().ToList();
+        protected static IList<Action> FileActions => GetFileManipulations(Files).ToList();
         /// <summary>
         /// Gets all the file manipulations.
         /// </summary>
         /// <param name="fileInfos">The files to manipulate.</param>
         /// <returns>A collection of manipulation functions.</returns>
-        private static IEnumerable<Action> GetFileManipulations(IList<FileInfo> fileInfos)
+        protected static IEnumerable<Action> GetFileManipulations(IList<FileInfo> fileInfos)
         {
             for (int i = 0; i < fileInfos.Count; ++i)
             {
@@ -57,5 +37,7 @@ namespace Marathon.CommandLine
                 };
             }
         }
+
+        public abstract Task Go();
     }
 }
