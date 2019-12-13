@@ -11,13 +11,11 @@
     <Description>The Marathon library provides a .NET, cross-platform, lightweight task running library. It facilitates the composition of tasks for sequential and parallel execution, or both. Further, it provides synchronous and asynchronous implementations of the composed tasks in a transparent manner to the user.
 
 Leveraging the Task Parallel Library is even easier, clearer, and more expressive when using Marathon.</Description>
-    <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/domn1995/Marathon</PackageProjectUrl>
     <RepositoryUrl>https://github.com/domn1995/Marathon</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>marathon task action TPL async sync thread parallel blocking sequential sequence</PackageTags>
     <PackageReleaseNotes>1.0.0 - Initial release.</PackageReleaseNotes>
-    <PackageIconUrl></PackageIconUrl>
     <Nullable>enable</Nullable>
     <PackageLicenseFile>License.txt</PackageLicenseFile>
     <PackageIcon>icon.png</PackageIcon>
