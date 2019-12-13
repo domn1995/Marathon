@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Marathon.Library.Interfaces
@@ -39,7 +40,7 @@ namespace Marathon.Library.Interfaces
         /// </summary>
         /// <param name="actions">A collection of one or more actions to be run.</param>
         /// <returns>A <see cref="BaseRunner"/> ready to schedule tasks for execution.</returns>
-        public BaseRunner Then(params Action[] actions) => Then((IEnumerable<Action>) actions);
+        public BaseRunner Then(params Action[] actions) => Then(actions.AsEnumerable());
 
         /// <summary>
         /// Schedules new tasks that start executing the given <see cref="Action"/>s 
@@ -75,7 +76,7 @@ namespace Marathon.Library.Interfaces
         /// </summary>
         /// <param name="actions"></param>
         /// <returns></returns>
-        public BaseRunner And(params Action[] actions) => And((IEnumerable<Action>)actions);
+        public BaseRunner And(params Action[] actions) => And(actions.AsEnumerable());
 
         /// <summary>
         /// Schedules the given actions to start executing 

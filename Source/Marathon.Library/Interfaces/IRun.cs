@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Marathon.Library.Interfaces
 {
@@ -8,8 +9,9 @@ namespace Marathon.Library.Interfaces
     /// </summary>
     public interface IRun
     {
-        BaseRunner Run(params Action[] actions);
-        BaseRunner Run(IEnumerable<Action> actions);
-        BaseRunner Run(int delay);
+        public BaseRunner Run(Action action) => Run(new[] { action });
+        public BaseRunner Run(params Action[] actions) => Run(actions.AsEnumerable());
+        public BaseRunner Run(IEnumerable<Action> actions);
+        public BaseRunner Run(int delay);
     }
 }

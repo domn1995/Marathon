@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Marathon.Library.Interfaces;
 
 namespace Marathon.Library
@@ -14,7 +15,7 @@ namespace Marathon.Library
         /// </summary>
         /// <param name="actions"></param>
         /// <returns></returns>
-        public BaseRunner Run(params Action[] actions) => Run((IEnumerable<Action>)actions);
+        public BaseRunner Run(params Action[] actions) => Run(actions.AsEnumerable());
 
         /// <summary>
         /// Adds the given actions as tasks to be scheduled and run.
