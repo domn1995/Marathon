@@ -1,7 +1,17 @@
 language: csharp
+os:
+ - linux
+ 
+sudo: required
 solution: Marathon.sln
 mono: none
+dist: xenial
 dotnet: 3.1.100
+
+before_script:
+ - sudo apt-get install dotnet-sdk-2.2
+ - cd Source/Marathon.Library
+
 script:
  - dotnet restore
  - dotnet build
