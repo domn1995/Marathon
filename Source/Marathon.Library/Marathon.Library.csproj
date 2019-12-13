@@ -18,6 +18,7 @@ Leveraging the Task Parallel Library is even easier, clearer, and more expressiv
     <PackageTags>marathon task action TPL async sync thread parallel blocking sequential sequence</PackageTags>
     <PackageReleaseNotes>1.0.0 - Initial release.</PackageReleaseNotes>
     <PackageIconUrl>https://d30y9cdsu7xlg0.cloudfront.net/png/113911-200.png</PackageIconUrl>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
