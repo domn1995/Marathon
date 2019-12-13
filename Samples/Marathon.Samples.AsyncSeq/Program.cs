@@ -13,6 +13,7 @@ namespace Marathon.Samples.SyncSeq
             Task.Delay(2500).GetAwaiter().GetResult();
             WriteLineWithTimeStamp("action(): Finished work.");
         };
+
         public static async Task Main()
         {
             await Task.Delay(1000);
