@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Source\Marathon.Library\Marathon.Library.csproj" />
+    <ProjectReference Include="..\..\Source\Marathon.Library\Marathon.Library.csproj" />
   </ItemGroup>
 
 </Project>

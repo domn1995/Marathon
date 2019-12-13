@@ -11,18 +11,31 @@
     <Description>The Marathon library provides a .NET, cross-platform, lightweight task running library. It facilitates the composition of tasks for sequential and parallel execution, or both. Further, it provides synchronous and asynchronous implementations of the composed tasks in a transparent manner to the user.
 
 Leveraging the Task Parallel Library is even easier, clearer, and more expressive when using Marathon.</Description>
-    <PackageLicenseUrl>https://github.com/domn1995/Marathon/blob/master/License.txt</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/domn1995/Marathon</PackageProjectUrl>
     <RepositoryUrl>https://github.com/domn1995/Marathon</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>marathon task action TPL async sync thread parallel blocking sequential sequence</PackageTags>
     <PackageReleaseNotes>1.0.0 - Initial release.</PackageReleaseNotes>
-    <PackageIconUrl>https://d30y9cdsu7xlg0.cloudfront.net/png/113911-200.png</PackageIconUrl>
+    <PackageIconUrl></PackageIconUrl>
     <Nullable>enable</Nullable>
+    <PackageLicenseFile>License.txt</PackageLicenseFile>
+    <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Collections.Immutable" Version="1.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\License.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
