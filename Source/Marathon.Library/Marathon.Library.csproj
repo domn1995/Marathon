@@ -7,8 +7,8 @@
     <PackageId>Marathon</PackageId>
     <Authors>Domn Werner</Authors>
     <Company />
-    <Product>Marathon API</Product>
-    <Description>The Marathon library provides a .NET, cross-platform, lightweight task running library. It facilitates the composition of tasks for sequential and parallel execution, or both. Further, it provides synchronous and asynchronous implementations of the composed tasks in a transparent manner to the user.
+    <Product>Marathon</Product>
+    <Description>The Marathon library provides a .NET, cross-platform, lightweight task running library. It facilitates the composition of functions for sequential and parallel execution, or both. Further, it provides synchronous and asynchronous implementations of the composed tasks in a transparent manner to the user.
 
 Leveraging the Task Parallel Library is even easier, clearer, and more expressive when using Marathon.</Description>
     <PackageProjectUrl>https://github.com/domn1995/Marathon</PackageProjectUrl>
@@ -20,10 +20,6 @@ Leveraging the Task Parallel Library is even easier, clearer, and more expressiv
     <PackageLicenseFile>License.txt</PackageLicenseFile>
     <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.Collections.Immutable" Version="1.7.0" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\icon.png">
