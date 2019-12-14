@@ -1,5 +1,6 @@
 # Marathon 
-[![Actions Status](https://github.com/domn1995/Marathon/workflows/dotnetcore/badge.svg)](https://github.com/domn1995/Marathon/actions)
+[![Build Status](https://github.com/domn1995/Marathon/workflows/build/badge.svg)](https://github.com/domn1995/Marathon/actions)
+
 The Marathon library provides a .NET, cross-platform, lightweight task running library. It facilitates the composition of tasks for sequential and parallel execution, or both. Further, it provides synchronous and asynchronous implementations of the composed tasks in a transparent manner to the user.
 
 Leveraging the Task Parallel Library is even easier, clearer, and more expressive when using Marathon.
