@@ -9,7 +9,9 @@ Compatibility
   
 Installation
 ---
-   - NuGet: coming soon!
+   - Package Manage Console: `Install-Package Marathon`
+   - .NET CLI: `dotnet add package Marathon`
+   - .csproj reference: Add `<PackageReference Include="Marathon"/>` to the `<PropertyGroup>` node of your project.
    
 Hello World
 ---
