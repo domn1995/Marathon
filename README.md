@@ -5,7 +5,7 @@ Leveraging the Task Parallel Library is even easier, clearer, and more expressiv
 
 Compatibility
 ---
-  - .NET Standard 2.0
+  - .NET Standard 2.1
   
 Installation
 ---
