@@ -43,5 +43,12 @@ namespace Marathon.Library
             Tasks.Add(task);
             return this;
         }
+
+        public BaseRunner Run<T>(Action<T> action, T arg)
+        {
+            TypedTask task = new TypedTask(() => action(arg), RunType.And);
+            Tasks.Add(task);
+            return this;
+        }
     }
 }

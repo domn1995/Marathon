@@ -23,5 +23,7 @@ namespace Marathon.Library
         /// <param name="action">The <see cref="Action"/> to be run.</param>
         /// <returns>A <see cref="BaseRunner"/> scheduled to run the given <see cref="Action"/>.</returns>
         public static BaseRunner Run(this Action action) => new Runner().Run(action);
+
+        public static BaseRunner Run<T>(this Action<T> action, T arg) => new Runner().Run(() => action(arg));
     }
 }
