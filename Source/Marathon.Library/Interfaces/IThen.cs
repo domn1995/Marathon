@@ -10,5 +10,6 @@ namespace Marathon.Library.Interfaces
     {
         BaseRunner Then(params Action[] actions);
         BaseRunner Then(IEnumerable<Action> actions);
+        BaseRunner Then<T>(Action<T> action, T arg);
     }
 }

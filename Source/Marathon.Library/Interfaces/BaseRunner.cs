@@ -58,6 +58,8 @@ namespace Marathon.Library.Interfaces
             return this;
         }
 
+        public BaseRunner Then<T>(Action<T> action, T arg) => Then(() => action(arg));
+
         /// <summary>
         /// Schedules a delay to start executing after the previously scheduled task(s) have finished.
         /// </summary>
@@ -93,6 +95,8 @@ namespace Marathon.Library.Interfaces
             }
             return this;
         }
+
+        public BaseRunner And<T>(Action<T> action, T arg) => And(() => action(arg));
 
         /// <summary>
         /// Schedules and starts all internal tasks for asynchronous execution.

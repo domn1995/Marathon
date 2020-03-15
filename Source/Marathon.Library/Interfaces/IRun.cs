@@ -10,6 +10,7 @@ namespace Marathon.Library.Interfaces
     public interface IRun
     {
         public BaseRunner Run(Action action) => Run(new[] { action });
+        public BaseRunner Run<T>(Action<T> action, T arg);
         public BaseRunner Run(params Action[] actions) => Run(actions.AsEnumerable());
         public BaseRunner Run(IEnumerable<Action> actions);
         public BaseRunner Run(int delay);
