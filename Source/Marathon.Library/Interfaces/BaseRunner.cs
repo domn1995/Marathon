@@ -36,7 +36,7 @@ namespace Marathon.Library.Interfaces
 
         /// <summary>
         /// Schedules new tasks that start executing the given <see cref="Action"/>s 
-        /// in parallel after the previously scheduled task(s) have finished.
+        /// in sequentially after the previously scheduled task(s) have finished.
         /// </summary>
         /// <param name="actions">A collection of one or more actions to be run.</param>
         /// <returns>A <see cref="BaseRunner"/> ready to schedule tasks for execution.</returns>
@@ -44,7 +44,7 @@ namespace Marathon.Library.Interfaces
 
         /// <summary>
         /// Schedules new tasks that start executing the given <see cref="Action"/>s 
-        /// in parallel after the previously scheduled task(s) have finished.
+        /// in sequentially after the previously scheduled task(s) have finished.
         /// </summary>
         /// <param name="actions">A collection of actions to be run.</param>
         /// <returns>A <see cref="BaseRunner"/> ready to schedule tasks for execution.</returns>
@@ -57,8 +57,6 @@ namespace Marathon.Library.Interfaces
             }
             return this;
         }
-
-        public BaseRunner Then<T>(Action<T> action, T arg) => Then(() => action(arg));
 
         /// <summary>
         /// Schedules a delay to start executing after the previously scheduled task(s) have finished.
@@ -77,7 +75,7 @@ namespace Marathon.Library.Interfaces
         /// at the same time as as the previously scheduled action(s).
         /// </summary>
         /// <param name="actions"></param>
-        /// <returns></returns>
+        /// <returns>A <see cref="BaseRunner"/> ready to schedule tasks for execution.</returns>
         public BaseRunner And(params Action[] actions) => And(actions.AsEnumerable());
 
         /// <summary>
@@ -85,7 +83,7 @@ namespace Marathon.Library.Interfaces
         /// at the same time as as the previously scheduled action(s).
         /// </summary>
         /// <param name="actions"></param>
-        /// <returns></returns>
+        /// <returns>A <see cref="BaseRunner"/> ready to schedule tasks for execution.</returns>
         public BaseRunner And(IEnumerable<Action> actions)
         {
             foreach (Action action in actions)
@@ -95,8 +93,6 @@ namespace Marathon.Library.Interfaces
             }
             return this;
         }
-
-        public BaseRunner And<T>(Action<T> action, T arg) => And(() => action(arg));
 
         /// <summary>
         /// Schedules and starts all internal tasks for asynchronous execution.
@@ -109,5 +105,111 @@ namespace Marathon.Library.Interfaces
         /// </summary>
         /// <remarks>This method will block the calling thread.</remarks>
         public void Sync() => scheduler.ScheduleAsync(Tasks).GetAwaiter().GetResult();
+
+        /// <summary>
+        /// Schedules a new task that starts executing the given <see cref="Action"/>
+        /// sequentially after the previously scheduled task(s) have finished.
+        /// </summary>
+        /// <param name="actions">A collection of one or more actions to be run.</param>
+        /// <returns>A <see cref="BaseRunner"/> ready to schedule tasks for execution.</returns>
+        public BaseRunner Then<T>(Action<T> action, T arg) => Then(() => action(arg));
+
+        /// <summary>
+        /// Schedules a new task that starts executing the given <see cref="Action"/>
+        /// sequentially after the previously scheduled task(s) have finished.
+        /// </summary>
+        /// <param name="actions">A collection of one or more actions to be run.</param>
+        /// <returns>A <see cref="BaseRunner"/> ready to schedule tasks for execution.</returns>
+        public BaseRunner Then<T1, T2>(Action<T1, T2> action, T1 arg1, T2 arg2)
+            => Then(() => action(arg1, arg2));
+
+        /// <summary>
+        /// Schedules a new task that starts executing the given <see cref="Action"/>
+        /// sequentially after the previously scheduled task(s) have finished.
+        /// </summary>
+        /// <param name="actions">A collection of one or more actions to be run.</param>
+        /// <returns>A <see cref="BaseRunner"/> ready to schedule tasks for execution.</returns>
+        public BaseRunner Then<T1, T2, T3>(Action<T1, T2, T3> action, T1 arg1, T2 arg2, T3 arg3)
+            => Then(() => action(arg1, arg2, arg3));
+
+        /// <summary>
+        /// Schedules a new task that starts executing the given <see cref="Action"/>
+        /// sequentially after the previously scheduled task(s) have finished.
+        /// </summary>
+        /// <param name="actions">A collection of one or more actions to be run.</param>
+        /// <returns>A <see cref="BaseRunner"/> ready to schedule tasks for execution.</returns>
+        public BaseRunner Then<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
+            => Then(() => action(arg1, arg2, arg3, arg4));
+
+        /// <summary>
+        /// Schedules a new task that starts executing the given <see cref="Action"/>
+        /// sequentially after the previously scheduled task(s) have finished.
+        /// </summary>
+        /// <param name="actions">A collection of one or more actions to be run.</param>
+        /// <returns>A <see cref="BaseRunner"/> ready to schedule tasks for execution.</returns>
+        public BaseRunner Then<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
+            => Then(() => action(arg1, arg2, arg3, arg4, arg5));
+
+        /// <summary>
+        /// Schedules a new task that starts executing the given <see cref="Action"/>
+        /// sequentially after the previously scheduled task(s) have finished.
+        /// </summary>
+        /// <param name="actions">A collection of one or more actions to be run.</param>
+        /// <returns>A <see cref="BaseRunner"/> ready to schedule tasks for execution.</returns>
+        public BaseRunner Then<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6)
+            => Then(() => action(arg1, arg2, arg3, arg4, arg5, arg6));
+
+        /// <summary>
+        /// Schedules a new task that starts executing the given <see cref="Action"/>
+        /// in parallel after the previously scheduled task(s) have finished.
+        /// </summary>
+        /// <param name="actions">A collection of one or more actions to be run.</param>
+        /// <returns>A <see cref="BaseRunner"/> ready to schedule tasks for execution.</returns>
+        public BaseRunner And<T>(Action<T> action, T arg) => And(() => action(arg));
+
+        /// <summary>
+        /// Schedules a new task that starts executing the given <see cref="Action"/>
+        /// in parallel after the previously scheduled task(s) have finished.
+        /// </summary>
+        /// <param name="actions">A collection of one or more actions to be run.</param>
+        /// <returns>A <see cref="BaseRunner"/> ready to schedule tasks for execution.</returns>
+        public BaseRunner And<T1, T2>(Action<T1, T2> action, T1 arg1, T2 arg2)
+            => And(() => action(arg1, arg2));
+
+        /// <summary>
+        /// Schedules a new task that starts executing the given <see cref="Action"/>
+        /// in parallel after the previously scheduled task(s) have finished.
+        /// </summary>
+        /// <param name="actions">A collection of one or more actions to be run.</param>
+        /// <returns>A <see cref="BaseRunner"/> ready to schedule tasks for execution.</returns>
+        public BaseRunner And<T1, T2, T3>(Action<T1, T2, T3> action, T1 arg1, T2 arg2, T3 arg3)
+            => And(() => action(arg1, arg2, arg3));
+
+        /// <summary>
+        /// Schedules a new task that starts executing the given <see cref="Action"/>
+        /// in parallel after the previously scheduled task(s) have finished.
+        /// </summary>
+        /// <param name="actions">A collection of one or more actions to be run.</param>
+        /// <returns>A <see cref="BaseRunner"/> ready to schedule tasks for execution.</returns>
+        public BaseRunner And<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
+            => And(() => action(arg1, arg2, arg3, arg4));
+
+        /// <summary>
+        /// Schedules a new task that starts executing the given <see cref="Action"/>
+        /// in parallel after the previously scheduled task(s) have finished.
+        /// </summary>
+        /// <param name="actions">A collection of one or more actions to be run.</param>
+        /// <returns>A <see cref="BaseRunner"/> ready to schedule tasks for execution.</returns>
+        public BaseRunner And<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
+            => And(() => action(arg1, arg2, arg3, arg4, arg5));
+
+        /// <summary>
+        /// Schedules a new task that starts executing the given <see cref="Action"/>
+        /// in parallel after the previously scheduled task(s) have finished.
+        /// </summary>
+        /// <param name="actions">A collection of one or more actions to be run.</param>
+        /// <returns>A <see cref="BaseRunner"/> ready to schedule tasks for execution.</returns>
+        public BaseRunner And<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6)
+            => And(() => action(arg1, arg2, arg3, arg4, arg5, arg6));
     }
 }
