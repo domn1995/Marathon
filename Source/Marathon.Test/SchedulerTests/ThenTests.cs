@@ -13,13 +13,12 @@ namespace Marathon.Test.SchedulerTests
         [Fact]
         public void Test4ThensSync500MsEach2000MsTotal()
         {
-            Initialize();
             // Run the four runner tasks synchronously.
             Runner.Run(S).Then(S, S, S).Sync();
             // Stop the timer after the four tasks have finished.
             Lapper.Stop();
             // We should have four laps since we ran four tasks.
-            Assert.True(Laps.Count == 4);
+            Assert.Equal(4, Laps.Count);
             // Each lap should have been about 500ms...
             foreach (TimeSpan lap in Laps)
             {
@@ -32,7 +31,6 @@ namespace Marathon.Test.SchedulerTests
         [Fact]
         public async Task Test4ThensAsync500MsEach2000MsTotal()
         {
-            Initialize();
             // Start the runner asynchronously.
             Task t = Runner.Run(S).Then(S, S, S).Async();
             // Take a lap right away. This should be only a few milliseconds in
@@ -42,7 +40,7 @@ namespace Marathon.Test.SchedulerTests
             await t.ConfigureAwait(false);
             Lapper.Stop();
             // There should be 5 laps; one that we took right away and one each per runner task.
-            Assert.True(Laps.Count == 5);
+            Assert.Equal(5, Laps.Count);
             // The first task should have been lapped right away, a few milliseconds after starting.
             // Let's give a 500% epsilon since the expected time is so short.
             TimeAssert.DeltaEquals(TimeSpan.FromMilliseconds(10), Lapper.Laps[0], 5);
@@ -58,7 +56,6 @@ namespace Marathon.Test.SchedulerTests
         [Fact]
         public void TestThenDelaySync100MsEach500MsTotal()
         {
-            Initialize();
             Runner.Run(100).Then(100).Then(100).Then(100).Then(100).Sync();
             Lapper.Stop();
             TimeAssert.DeltaEquals(TimeSpan.FromMilliseconds(500), Lapper.Elapsed, 0.25);

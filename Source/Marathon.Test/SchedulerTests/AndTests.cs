@@ -13,13 +13,12 @@ namespace Marathon.Test.SchedulerTests
         [Fact]
         public void Test4AndsSync500MsEach500MsTotal()
         {
-            Initialize();
             // Execute the runner synchronously.
             Runner.Run(S).And(S, S, S).Sync();
             // Take a lap once the runner is finished.
             Lapper.Stop();
             // We should have one lap per task run.
-            Assert.True(Laps.Count == 4);
+            Assert.Equal(4, Laps.Count);
             // Each lap should be about 500ms...
             foreach (TimeSpan lap in Laps)
             {
@@ -32,7 +31,6 @@ namespace Marathon.Test.SchedulerTests
         [Fact]
         public async Task Test4AndsAsync500MsEach500MsTotal()
         {
-            Initialize();
             // Start the runner asynchronously.
             Task t = Runner.Run(S).And(S, S, S).Async();
             // Take a lap right away. This should be only a few milliseconds in
@@ -44,7 +42,7 @@ namespace Marathon.Test.SchedulerTests
             // The async lap (first lap) should have been only a few ms after its stopwatch started.
             TimeAssert.EpsilonEquals(TimeSpan.FromMilliseconds(25), Laps[0], TimeSpan.FromMilliseconds(50));
             // We should have one lap per task run.
-            Assert.True(Laps.Count == 5);
+            Assert.Equal(5, Laps.Count);
             // Each lap should be about 500ms...
             // Skip the first lap because it was the one we took right away.
             foreach (TimeSpan lap in Laps.Skip(1))
