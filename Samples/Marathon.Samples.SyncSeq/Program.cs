@@ -24,7 +24,7 @@ namespace Marathon.Samples.SyncSeq
         {
             await Task.Delay(1000);
             WriteLineWithTimeStamp("Main(): Before work.");
-            action.Run().Then(action2, 1).Then(action2, 2).Sync();
+            action.Run().Then(() => action2(1)).Then(() => action2(2)).Sync();
             WriteLineWithTimeStamp("Main(): After work.");
             // Wait to exit.
             Console.WriteLine("Press enter to quit.");
