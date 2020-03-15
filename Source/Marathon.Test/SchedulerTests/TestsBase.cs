@@ -11,16 +11,15 @@ namespace Marathon.Test.SchedulerTests
     public abstract class TestsBase
     {
         private readonly object locker = new object();
-        protected List<TimeSpan> Laps { get; private set; }
+        protected List<TimeSpan> Laps { get; } = new List<TimeSpan>();
         protected Lapper Lapper { get; private set; }
         protected Runner Runner { get; private set; }
 
         /// <summary>
         /// Initializes a new test.
         /// </summary>
-        protected virtual void Initialize()
+        protected TestsBase()
         {
-            Laps = new List<TimeSpan>();
             Lapper = Lapper.StartNew();
             Runner = new Runner();
         }
@@ -30,13 +29,11 @@ namespace Marathon.Test.SchedulerTests
         /// </summary>
         protected void S()
         {
-            using (Lapper l = Lapper.StartNew())
+            using Lapper l = Lapper.StartNew();
+            Task.Delay(500).GetAwaiter().GetResult();
+            lock (locker)
             {
-                Task.Delay(500).GetAwaiter().GetResult();
-                lock (locker)
-                {
-                    Laps.Add(l.Lap());
-                }
+                Laps.Add(l.Lap());
             }
         }
 
@@ -45,13 +42,11 @@ namespace Marathon.Test.SchedulerTests
         /// </summary>
         protected void L()
         {
-            using (Lapper l = Lapper.StartNew())
+            using Lapper l = Lapper.StartNew();
+            Task.Delay(1000).GetAwaiter().GetResult();
+            lock (locker)
             {
-                Task.Delay(1000).GetAwaiter().GetResult();
-                lock (locker)
-                {
-                    Laps.Add(l.Lap());
-                }
+                Laps.Add(l.Lap());
             }
         }
     }
